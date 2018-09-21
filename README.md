@@ -1,33 +1,37 @@
-# react-emotion
+# react-emotional
 
 > The styled API for emotion and react
 
-`react-emotion` exports `styled` which allows you to use emotion to create React components that have styles attached to them, it also exports all of `emotion`'s exports.
+`react-emotional` exports `styled` which allows you to use emotion to create React components that have styles attached to them, it also exports all of `emotion`'s exports.
 
 For more documentation on `styled`, [read about it and try it out in the `styled` docs](https://emotion.sh/docs/styled)
 
 ```bash
-npm install --save emotion react-emotion
+npm install --save emotion react-emotional
 ```
 
 ```jsx
 // @live
-import styled, { css } from 'react-emotion'
-const SomeComponent = styled('div')`
-  display: flex;
-  background-color: ${props => props.color};
-`
+import { injectGlobal, css } from 'react-emotional';
 
-const AnotherComponent = styled('h1')(
-  {
-    color: 'hotpink'
-  },
-  props => ({ flex: props.flex })
-)
+injectGlobal(`
+  @mixin flex {
+    display: flex;
+    align-items: center;
+  }
+  
+  :root {
+    --blue: #3791f5;
+  }
+`);
+
+const SomeComponent = css`
+  @include flex;
+  background-color: var(--blue);
+`;
+
 
 render(
-  <SomeComponent color="#DA70D6">
-    <AnotherComponent flex={1}>Some text.</AnotherComponent>
-  </SomeComponent>
+  <SomeComponent />
 )
 ```
