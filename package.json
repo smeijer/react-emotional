@@ -1,9 +1,10 @@
 {
   "name": "react-emotional",
-  "version": "9.2.8",
+  "version": "9.2.10",
   "description": "The Next Generation of CSS-in-JS, for React projects.",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
+  "jsnext:main": "dist/index.es.js",
+  "umd:main": "./dist/index.umd.js",
   "types": "types/index.d.ts",
   "files": [
     "src",
@@ -12,7 +13,9 @@
     "types"
   ],
   "scripts": {
-    "test:typescript": "dtslint types"
+    "test:typescript": "dtslint types",
+    "build": "node scripts/build",
+    "prepublish": "npm run test:typescript && npm run build"
   },
   "dependencies": {
     "babel-plugin-emotion": "^9.2.8",
@@ -23,9 +26,15 @@
     "react": "15.x || 16.x"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
     "@types/react": "16.0.16",
+    "babel-cli": "^6.26.0",
+    "del": "^3.0.0",
     "dtslint": "^0.3.0",
-    "emotion": "^9.2.8"
+    "emotion": "^9.2.8",
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel": "^4.0.3"
   },
   "author": "Stephan Meijer",
   "license": "MIT",
@@ -40,5 +49,9 @@
   "bugs": {
     "url": "https://github.com/smeijer/react-emotion/issues"
   },
-  "umd:main": "./dist/emotion.umd.min.js"
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
 }
